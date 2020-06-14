@@ -1,0 +1,54 @@
+[
+    {
+        "make_name": "Chevrolet",
+        "model_name": "Aveo",
+        "description": "Sports car",
+        "cash_price": 500000.0,
+        "color": "Intense Black;",
+        "transmission": "Manual",
+        "fuel_type": "Petrol",
+        "body_style": "Sedan",
+        "model_year": 2006,
+        "vehicle_mileage": 40000,
+        "vehicle_id": "VH01"
+    },
+    {
+        "make_name": "Chevrolet",
+        "model_name": "X5",
+        "description": "Small car 1.4",
+        "cash_price": 500000.0,
+        "color": "Intense Black;",
+        "transmission": "Manual",
+        "fuel_type": "Petrol",
+        "body_style": "Sedan",
+        "model_year": 2006,
+        "vehicle_mileage": 40000,
+        "vehicle_id": "VH01"
+    },
+    {
+        "make_name": "Ferrari",
+        "model_name": "F-Pace",
+        "description": "Small car 1.4",
+        "cash_price": 500000.0,
+        "color": "Intense Black;",
+        "transmission": "Manual",
+        "fuel_type": "Petrol",
+        "body_style": "Sedan",
+        "model_year": 2006,
+        "vehicle_mileage": 40000,
+        "vehicle_id": "VH01"
+    },
+    {
+        "make_name": "Ferrari",
+        "model_name": "E-Pace",
+        "description": "Large car 1.4",
+        "cash_price": 500000.0,
+        "color": "Intense Black;",
+        "transmission": "Manual",
+        "fuel_type": "Petrol",
+        "body_style": "Sedan",
+        "model_year": 2006,
+        "vehicle_mileage": 40000,
+        "vehicle_id": "VH01"
+    }
+]

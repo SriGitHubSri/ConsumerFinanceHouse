@@ -221,6 +221,7 @@ export class SampleForm extends Component {
                       className="form-control"
                     ></input>
                     <button
+                      type="button"
                       onClick={() =>
                         this.props.searchDealer(this.state.postCode)
                       }

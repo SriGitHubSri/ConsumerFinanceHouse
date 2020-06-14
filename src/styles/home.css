@@ -7,8 +7,18 @@
   background-color: #d8f5ff;
 } */
 
+@import url('https://cdn.syncfusion.com/ej2/material.css');
 .banner {
   background-image: url("../assets/images/banner.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: auto;
+  height: 450px;
+  filter: blur(3px);
+}
+.dealerbanner {
+  background-image: url("../assets/images/Dealer.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -36,7 +46,7 @@
 
 .slider-overlay {
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;

@@ -13,7 +13,7 @@ import * as Navigate from "../constants/routes-constant";
 // Anand: made this a component to accomodate Navbar
 export class App extends Component {
   render() {
-    const { onQuote, onForm, onHome } = this.props;
+    const { onQuote, onForm, onHome, onDealerForm } = this.props;
     console.log(this.props);
     return (
       <React.Fragment>
@@ -46,6 +46,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   onHome: () => {
     ownProps.history.push(Navigate.TO_HOME);
+  },
+  onDealerForm: () => {
+    ownProps.history.push(Navigate.TO_DEALER);
   },
 });
 

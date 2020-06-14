@@ -7,7 +7,7 @@ export class Navbar extends Component {
   };
 
   render() {
-    const { onQuote, onForm, onHome } = this.props;
+    const { onQuote, onForm, onHome, onDealerForm } = this.props;
     console.log("onQuote", onQuote);
     return (
       <div>
@@ -47,6 +47,11 @@ export class Navbar extends Component {
               <li className="nav-item">
                 <a className="nav-link" href="#">
                   PROPOSAL
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#" onClick={onDealerForm}>
+                  DEALER
                 </a>
               </li>
             </ul>
