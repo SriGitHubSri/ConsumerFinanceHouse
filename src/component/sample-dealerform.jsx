@@ -31,7 +31,7 @@ export class SampledealerForm extends Component {
     //bind Make onchange event
     this.handleChangeMake = this.handleChangeMake.bind(this);
     this.handleChangeModel = this.handleChangeModel.bind(this);
-    this.handleChangeDesc = this.handleChangeDesc.bind(this);
+    //this.handleChangeDesc = this.handleChangeDesc.bind(this);
     this.handlePostCodeChange = this.handlePostCodeChange.bind(this);
   }
 
@@ -56,7 +56,8 @@ export class SampledealerForm extends Component {
     var selectedIdx = event.target.selectedIndex;
     var selectedModel = event.target[selectedIdx].text;
     this.setState({ modelValue: selectedModel });
-    this.props.getVehicleDescriptions(this.state.makeValue, selectedModel);
+    //this.props.getVehicleDescriptions(this.state.makeValue, selectedModel);
+    this.props.getAllVehicleDetails(this.state.makeValue, selectedModel);
    
     
   }
@@ -86,13 +87,32 @@ export class SampledealerForm extends Component {
   }
 
 
-  render() {
+   render() {
     console.log("fin house11");
     const { onQuote } = this.props;
     const { financeHouseState } = this.props;
     //this.gridInstance.dataSource = this.props
     //const { searchResults } = this.props.dealerSearchResult;
     console.log("fin22", financeHouseState);
+    const selectionOptions: SelectionSettingsModel ={
+      checkboxMode: 'ResetOnRowClick',
+      enableToggle: 'true'
+    };
+    let grid : Grid | null;
+    const rowSelected =()=>{
+      if(grid)
+      {
+        const selectedRowIndexes: number[] =grid.getSelectedRowIndexes();
+        //alert(grid.getSelectedRowIndexes());
+        //alert(financeHouseState.vehicleDetails);
+        financeHouseState.vehicleDetails[0] = financeHouseState.vehicleDetails[selectedRowIndexes];
+       // this.props.financeHouseState.vehicleDetails = this.props.financeHouseState.vehicleDetails[0];
+        // alert("makeListbefore"+financeHouseState.makelist);
+        // financeHouseState.makelist = financeHouseState.vehicleDetails;
+        // alert(financeHouseState.vehicleDetails[0]);
+        // alert("makeListafter"+financeHouseState.makelist)
+      }
+      }
     
     return (
       <React.Fragment>
@@ -142,7 +162,7 @@ export class SampledealerForm extends Component {
                     </select>
                     </div>
                     </div>
-                    <div className="col-sm">
+                    {/* <div className="col-sm">
                   <div className="form-group">
                     <label>Description:</label>
                     <select
@@ -169,7 +189,7 @@ export class SampledealerForm extends Component {
                             }
                           </select>
                   </div>
-                </div>
+                </div> */}
 
               </div>
             </div>
@@ -180,10 +200,15 @@ export class SampledealerForm extends Component {
               <h5>Vehicle Details</h5>
 
               <div >
-                <GridComponent ref={grid => this.gridInstance = grid}
-                  dataSource= {this.props.financeHouseState.vehicleDetails}
+                <GridComponent ref={g => grid = g}
+                  dataSource= {financeHouseState.vehicleDetails}
+                  //dataSource = {data}
                   allowPaging={true}
-                  pageSettings={{ pageSize: 2 }}
+                  selectionSettings = {selectionOptions}
+                  //selectedRowIndex = {1}
+                  rowSelected = {rowSelected}
+
+                  pageSettings={{ pageSize: 10 }}
                   allowFiltering={true}
                   allowGrouping={true}
                 >

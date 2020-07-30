@@ -49,6 +49,11 @@ pipeline {
                 sh "docker tag consumer-finance-house-cwa:v${BUILD_NUMBER} 51.132.233.171:8083/consumer-finance-house-cwa:v${BUILD_NUMBER}"
                 sh "docker push 51.132.233.171:8083/consumer-finance-house-cwa:v${BUILD_NUMBER}"
                 echo "nexus upload successful"
+
+                sh 'docker login -u venekatpoc -p fSleJVACkNbJel7+YSDCgy3i2binIajZ venekatpoc.azurecr.io'
+                sh "docker tag consumer-finance-house-cwa:v${BUILD_NUMBER} venekatpoc.azurecr.io/consumer-finance-house-cwa:v${BUILD_NUMBER}"
+                sh "docker push venekatpoc.azurecr.io/consumer-finance-house-cwa:v${BUILD_NUMBER}"
+                echo "Azure Container Registry upload successful"
             }
         }
     }

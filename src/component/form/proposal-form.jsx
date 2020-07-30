@@ -90,18 +90,19 @@ export class ProposalForm extends Component {
         const { fullState, vehicleDetails, toProposal } = this.props;
         return (
             <React.Fragment>
-                <div>
-                    <a className="navbar-brand" href="#">
+                <div className="quotes-container">
+                    {/* <a className="navbar-brand" href="#">
                         <img className="logo-small" src={require("../../assets/images/logo.png")} />
-                    </a>
+                    </a> */}
                     <span className="is-size-3">Proposal Details</span>
                     <hr className="heading-divider" />
-                    <div className="level">
+                    {this.props.vehicleDetails && <div className="level">
                         <VehicleSummaryForm vehicle={this.props.vehicleDetails}></VehicleSummaryForm>
-                    </div>
-                    <br />
+                    </div>}
+                    {this.props.vehicleDetails && <hr className="heading-divider" />}
+                    {/* <br /> */}
 
-                    <form id="proposalForm" onSubmit={this.handleSubmit} className="quotes-container">
+                    <form id="proposalForm" onSubmit={this.handleSubmit} >
                         <div>
                             {/* temp */}
                             {/* <div style={{ textAlign: "right" }}>

@@ -15,7 +15,7 @@ export class VehicleSummaryForm extends Component {
             <React.Fragment>
                 <div>
                     {this.props.vehicle &&
-                        <div className="quotes-container">
+                        <div>
 
                             {/* <hr className="heading-divider" /> */}
                             <div className="level">
@@ -51,7 +51,7 @@ export class VehicleSummaryForm extends Component {
                                             </div>
                                             <div className="column">
                                                 <strong>Transmission : </strong>
-                                                <span> {this.props.transmission} </span>
+                                                <span> {this.props.vehicle.transmission} </span>
                                             </div>
                                             <div className="column">
                                                 <strong>Body Style : </strong>
@@ -71,7 +71,7 @@ export class VehicleSummaryForm extends Component {
 
                                 </div>
                             </div>
-                            <hr className="heading-divider" />
+                            {/* <hr className="heading-divider" /> */}
                         </div>}
                 </div>
 

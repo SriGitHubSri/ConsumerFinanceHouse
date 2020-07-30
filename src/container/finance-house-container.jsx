@@ -7,8 +7,9 @@ import {
   getVehicleModels,
   getVehicleDetails,
   getVehicleDescriptions,
+  proceedToQuote,
 } from "../actions/fin-house-actions";
-import * as Navigate from '../constants/routes-constant';
+import * as Navigate from "../constants/routes-constant";
 
 const FinanceHouseContainer = new reduxForm({
   form: "sampleForm",
@@ -20,8 +21,9 @@ export const mapStateToProps = (state) => ({
 });
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({
-
-  onQuote: () => {
+  onQuote: (vehicle, dealer, color) => {
+    //console.log("onQuote1", vehicle, dealer);
+    dispatch(proceedToQuote(vehicle, dealer, color));
     ownProps.history.push(Navigate.TO_QUOTES);
   },
   searchDealer: (postcd) => {
@@ -43,4 +45,7 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FinanceHouseContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FinanceHouseContainer);

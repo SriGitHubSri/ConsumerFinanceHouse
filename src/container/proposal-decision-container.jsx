@@ -13,6 +13,7 @@ export const mapStateToProps = state => ({
     proposalSuccess: state.proposal.proposalSuccess,
     proposalFail: state.proposal.proposalFail,
     vehicleDetails: state.financeHouse.vehicleDetails[0],
+    proposalStatus: state.proposalStatus,
 });
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({

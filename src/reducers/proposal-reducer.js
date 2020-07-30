@@ -5,6 +5,7 @@ import {
 const initialState = {
     proposalSuccess: "",
     proposalFail: "",
+    proposalStatus: "",
 };
 
 const proposal = (state = initialState, action) => {
@@ -21,7 +22,10 @@ const proposal = (state = initialState, action) => {
                 proposalFail: action.json,
             };
         default:
-            return state;
+            return {
+                proposalStatus: "Something wrong",
+                state,
+            };
     }
 };
 

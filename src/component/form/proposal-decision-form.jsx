@@ -11,35 +11,40 @@ export class ProposalDecisionForm extends Component {
     }
 
     render() {
-        const { proposalSuccess, proposalFail, vehicleDetails } = this.props;
+        const { proposalSuccess, proposalFail, vehicleDetails, proposalStatus } = this.props;
 
         return (
             <React.Fragment>
-                <div>
+                <div className="quotes-container">
 
-                    <a className="navbar-brand" href="#">
+                    {/* <a className="navbar-brand" href="#">
                         <img className="logo-small" src={require("../../assets/images/logo.png")} />
-                    </a>
+                    </a> */}
                     <span className="is-size-3">Proposal Decision</span>
                     <hr className="heading-divider" />
-                    <div className="level">
+                    {this.props.vehicleDetails && <div className="level">
                         <VehicleSummaryForm vehicle={this.props.vehicleDetails}></VehicleSummaryForm>
-                    </div>
-                    <br />
+                    </div>}
+                    {this.props.vehicleDetails && <hr className="heading-divider" />}
+                    {/* <br /> */}
 
-                    <div style={{ marginTop: 0 }} className="quotes-container">
-                        <Paper>
-                            {proposalSuccess && <Typography className="quotes-container" variant="h5" component="h2">
+                    <div style={{ marginTop: 0 }}>
+                        <Paper variant="h5" component="h2" gutterBottom >
+                            {proposalStatus && <Typography>
+                                Something went wrong! Please try again after sometime!
+                            </Typography>}
+                            {proposalSuccess && <Typography variant="h5" component="h2">
                                 Decision:  {proposalSuccess}
                             </Typography>}
-                            {proposalFail && <Typography className="quotes-container" variant="h5" component="h2">
+                            {proposalFail && <Typography variant="h5" component="h2">
                                 Fail:  {proposalFail}
                             </Typography>}
-                            {!proposalSuccess && !proposalFail && <Typography className="quotes-container" variant="h5" component="h2">
+                            {!proposalSuccess && !proposalFail && <Typography variant="h5" component="h2">
                                 Something went wrong! Please try again after sometime!  {proposalFail}
                             </Typography>}
 
                         </Paper>
+
 
                     </div>
                 </div>

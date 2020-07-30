@@ -11,11 +11,9 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 const store = configureStore();
 
 ReactDOM.render(
-  <Router>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </Router>,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById("root")
 );
 

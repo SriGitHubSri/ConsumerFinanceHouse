@@ -7,6 +7,7 @@ import {
   getVehicleModels,
   getVehicleDetails,
   getVehicleDescriptions,
+  getAllVehicleDetails
 } from "../actions/fin-house-actions";
 import * as Navigate from '../constants/routes-constant'
 const DealerContainer = new reduxForm({
@@ -51,6 +52,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
   getVehicleDescriptions: (make, model) => {
     console.log("makemodel", model);
     dispatch(getVehicleDescriptions(make, model));
+  },
+  getAllVehicleDetails: (make, model) => {
+    dispatch(getAllVehicleDetails(make, model));
   },
 });
 
