@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function QuoteDetails(QuoteState) {
     console.log("quote state in detais", QuoteState);
+    console.log("quote PCP", QuoteState.PCPQuoteresponse);
     const classes = useStyles();
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
@@ -64,6 +65,14 @@ export default function QuoteDetails(QuoteState) {
 
     const handleChangeIndex = (index) => {
         setValue(index);
+    };
+
+    const handleHPProduct = (event) => {
+        QuoteState.toProposal("HP");
+    };
+
+    const handlePCPProduct = (event) => {
+        QuoteState.toProposal("PCP");
     };
 
     return (
@@ -128,13 +137,14 @@ export default function QuoteDetails(QuoteState) {
                                         <div className="columns">
                                             <div className="table-cell column">
                                                 <span>
-                                                    {QuoteState.term}{" monthly payments of"}
+                                                    {/* {QuoteState.term} */}
+                                                    {" monthly payments of"}
                                                 </span>
                                             </div>
                                             <div className="table-cell column">
                                                 <span>
                                                     {"£"}
-                                                    {QuoteState.QuoteResults.monthly_payment_amount}{" "}
+                                                    {QuoteState.HPQuoteResults.monthly_payment_amount}{" "}
                                                 </span>
                                             </div>
                                         </div>
@@ -144,48 +154,48 @@ export default function QuoteDetails(QuoteState) {
                                                 <span> {QuoteState.term} </span>
                                             </div>
                                         </div>
-                                        <div className="columns">
+                                        {/* <div className="columns">
                                             <div className="table-cell column">First payment</div>
                                             <div className="table-cell column">
                                                 <span>
                                                     {"£"}
-                                                    {QuoteState.QuoteResults.first_payment_amount}{" "}
+                                                    {QuoteState.HPQuoteResults.first_payment_amount}{" "}
                                                 </span>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="columns">
                                             <div className="table-cell column">Final payment</div>
                                             <div className="table-cell column">
                                                 <span>
                                                     {"£"}
-                                                    {QuoteState.QuoteResults.monthly_payment_amount}{" "}
+                                                    {QuoteState.HPQuoteResults.monthly_payment_amount}{" "}
                                                 </span>
                                             </div>
                                         </div>
                                         <div className="columns">
                                             <div className="table-cell column">Cash price</div>
                                             <div className="table-cell column">
-                                                {/* <span> {"£"}{financeHouseState.vehicleDetails[0].cash_price} </span> */}
+                                                {<span> {"£"}{QuoteState.HPQuotefinancial.cash_price} </span>}
                                             </div>
                                         </div>
                                         <div className="columns">
                                             <div className="table-cell column">Your deposit</div>
                                             <div className="table-cell column">
-                                                <span> {"£"}{QuoteState.QuoteResults.deposit_amount} </span>
+                                                {<span> {"£"}{QuoteState.HPQuotefinancial.deposit_amount} </span>}
                                             </div>
                                         </div>
-                                        <div className="columns">
+                                        {/* <div className="columns">
                                             <div className="table-cell column">Total Deposit</div>
                                             <div className="table-cell column">
-                                                <span> {"£"}{QuoteState.QuoteResults.deposit_amount} </span>
+                                                <span> {"£"}{QuoteState.HPQuotefinancial.deposit_amount} </span>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="columns">
                                             <div className="table-cell column">Amount of credit</div>
                                             <div className="table-cell column">
                                                 <span>
                                                     {"£"}
-                                                    {QuoteState.QuoteResults.amount_of_credit}{" "}
+                                                    {QuoteState.HPQuoteResults.amount_of_credit}{" "}
                                                 </span>
                                             </div>
                                         </div>
@@ -194,20 +204,20 @@ export default function QuoteDetails(QuoteState) {
                                             <div className="table-cell column">
                                                 <span>
                                                     {"£"}
-                                                    {QuoteState.QuoteResults.total_charge_for_credit}{" "}
+                                                    {QuoteState.HPQuoteResults.total_charge_for_credit}{" "}
                                                 </span>
                                             </div>
                                         </div>
-                                        <div className="columns">
+                                        {/* <div className="columns">
                                             <div className="table-cell column">Fixed rate of interest</div>
                                             <div className="table-cell column">
-                                                <span> {QuoteState.QuoteResults.fixed_rate_interest} {"%"}</span>
+                                                <span> {QuoteState.HPQuoteResults.fixed_rate_interest} {"%"}</span>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="columns">
                                             <div className="table-cell column">A.P.R</div>
                                             <div className="table-cell column">
-                                                <span> {QuoteState.QuoteResults.apr} {"% A.P.R"}</span>
+                                                <span> {QuoteState.HPQuoteResults.apr} {"% A.P.R"}</span>
                                             </div>
                                         </div>
                                         <div className="columns">
@@ -215,7 +225,7 @@ export default function QuoteDetails(QuoteState) {
                                             <div className="table-cell column">
                                                 <span>
                                                     {"£"}
-                                                    {QuoteState.QuoteResults.total_amount_payable}{" "}
+                                                    {QuoteState.HPQuoteResults.total_amount_payable}{" "}
                                                 </span>
                                             </div>
                                         </div>
@@ -230,9 +240,9 @@ export default function QuoteDetails(QuoteState) {
                         <div className="column is-three-fifths is-offset-one-fifth">
                             <button
                                 className="button is-primary is-medium is-fullwidth"
-                                onClick={QuoteState.toProposal}
+                                onClick={handleHPProduct}
                             >
-                                Choose the quote
+                                Choose HP quote
                             </button>
                         </div>
                     </div>
@@ -274,20 +284,21 @@ export default function QuoteDetails(QuoteState) {
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography>
-                                <div>Our Fixed Car Plan, also known as a Hire Purchase, is the simplest type of car finance we offer.</div>
+                                <div>Our Fixed Car Plan, also known as a Personal Contract Purchase, is the simplest type of car finance we offer.</div>
                                 <br />
                                 <div className="table columns">
                                     <div className="column is-three-fifths">
                                         <div className="columns">
                                             <div className="table-cell column">
                                                 <span>
-                                                    {QuoteState.term}{" monthly payments of"}
+                                                    {/* {QuoteState.term} */}
+                                                    {" monthly payments of"}
                                                 </span>
                                             </div>
                                             <div className="table-cell column">
                                                 <span>
                                                     {"£"}
-                                                    {/* {PCPQuoteState.monthly_payment_amount}{" "} */}
+                                                    {QuoteState.PCPQuoteresponse.monthly_payment_amount}{" "}
                                                 </span>
                                             </div>
                                         </div>
@@ -299,76 +310,78 @@ export default function QuoteDetails(QuoteState) {
                                                 </span>
                                             </div>
                                         </div>
-                                        <div className="columns">
+                                        {/* <div className="columns">
                                             <div className="table-cell column">First payment</div>
                                             <div className="table-cell column">
-                                                <span> {"£"} {QuoteState.QuoteResults.first_payment_amount} </span>
+                                                <span> {"£"} {QuoteState.PCPQuoteresponse.first_payment_amount} </span>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="columns">
                                             <div className="table-cell column">Optional final payment</div>
                                             <div className="table-cell column">
-                                                <span> {"£"} {QuoteState.QuoteResults.final_payment_amount} </span>
+                                                <span> {"£"} {QuoteState.PCPQuoteresponse.final_payment_amount} </span>
                                             </div>
                                         </div>
                                         <div className="columns">
                                             <div className="table-cell column">Cash price</div>
                                             <div className="table-cell column">
-                                                {/* <span> {"£"}{financeHouseState.vehicleDetails[0].cash_price} </span> */}
+                                                <span> {"£"} {QuoteState.HPQuotefinancial.cash_price} </span>
                                             </div>
                                         </div>
                                         <div className="columns">
                                             <div className="table-cell column">Your deposit</div>
                                             <div className="table-cell column">
-                                                <span> {"£"}{QuoteState.QuoteResults.deposit_amount} </span>
+                                                {<span> {"£"}{QuoteState.HPQuotefinancial.deposit_amount} </span>}
                                             </div>
                                         </div>
-                                        <div className="columns">
+                                        {/* <div className="columns">
                                             <div className="table-cell column">Total Deposit</div>
                                             <div className="table-cell column">
-                                                <span> {"£"}{QuoteState.QuoteResults.deposit_amount} </span>
+                                                {<span> {"£"}{QuoteState.HPQuotefinancial.deposit_amount} </span>}
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="columns">
                                             <div className="table-cell column">Amount of credit</div>
                                             <div className="table-cell column">
-                                                <span> {"£"} {QuoteState.QuoteResults.amount_of_credit} </span>
+                                                <span> {"£"} {QuoteState.PCPQuoteresponse.amount_of_credit} </span>
                                             </div>
                                         </div>
                                         <div className="columns">
                                             <div className="table-cell column">Total charge for credit</div>
                                             <div className="table-cell column">
-                                                <span> {"£"} {QuoteState.QuoteResults.total_charge_for_credit} </span>
+                                                <span> {"£"} {QuoteState.PCPQuoteresponse.total_charge_for_credit} </span>
                                             </div>
                                         </div>
                                         <div className="columns">
                                             <div className="table-cell column">Annual mileage</div>
                                             <div className="table-cell column">
-                                                <span> {"£"} {QuoteState.QuoteResults.max_annual_mileage} </span>
+                                                <span> {""} {QuoteState.PCPQuoteresponse.max_annual_mileage} </span>
                                             </div>
                                         </div>
                                         <div className="columns">
                                             <div className="table-cell column">Excess mileage</div>
                                             <div className="table-cell column">
-                                                <span> {"£"} {QuoteState.QuoteResults.excess_mileage} {"ppm"} </span>
+                                                <span> {"£"}
+                                                    {/* {QuoteState.PCPQuoteresponse.excess_mileage}  */}
+                                                    {" 3 ppm"} </span>
                                             </div>
                                         </div>
-                                        <div className="columns">
+                                        {/* <div className="columns">
                                             <div className="table-cell column">Fixed rate of interest</div>
                                             <div className="table-cell column">
-                                                <span> {QuoteState.QuoteResults.fixed_rate_interest} {"%"} </span>
+                                                <span> {QuoteState.PCPQuoteresponse.fixed_rate_interest} {"%"} </span>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="columns">
                                             <div className="table-cell column">A.P.R</div>
                                             <div className="table-cell column">
-                                                <span> {QuoteState.QuoteResults.apr} {"% A.P.R"} </span>
+                                                <span> {QuoteState.PCPQuoteresponse.apr} {"% A.P.R"} </span>
                                             </div>
                                         </div>
                                         <div className="columns">
                                             <div className="table-cell column">Total amount payable</div>
                                             <div className="table-cell column">
-                                                <span> {"£"} {QuoteState.QuoteResults.total_amount_payable} </span>
+                                                <span> {"£"} {QuoteState.PCPQuoteresponse.total_amount_payable} </span>
                                             </div>
                                         </div>
                                     </div>
@@ -382,9 +395,9 @@ export default function QuoteDetails(QuoteState) {
                         <div className="column is-three-fifths is-offset-one-fifth">
                             <button
                                 className="button is-primary is-medium is-fullwidth"
-                                onClick={QuoteState.toProposal}
+                                onClick={handlePCPProduct}
                             >
-                                Choose the quote
+                                Choose PCP quote
                             </button>
                         </div>
                     </div>

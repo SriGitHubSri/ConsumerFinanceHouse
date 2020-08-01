@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Field } from 'redux-form';
 import { InputSelect } from '../elements/input-select';
 import QuoteDetails from '../elements/quote-details';
+import { Typography, Paper, } from '@material-ui/core';
+import { VehicleSummaryForm } from '../form/vehicle-summary-form';
 
 export class QuoteForm extends Component {
   constructor() {
@@ -51,6 +53,13 @@ export class QuoteForm extends Component {
     this.setState({ max_annual_mileage: selectedMileage });
   }
 
+  handleHPProduct = (event) => {
+    this.props.toProposal("HP");
+  }
+
+  handlePCPProduct = (event) => {
+    this.props.toProposal("PCP");
+  }
 
   handleQuote = (event) => {
     event.preventDefault();
@@ -60,20 +69,48 @@ export class QuoteForm extends Component {
       term: this.state.term,
       deposit: this.state.deposit_amount,
       annual_mileage: this.state.max_annual_mileage,
+      // vehicle_mileage: this.props.financeHouseState.vehicleDetails[0].vehicle_mileage,
+      // registration_month: this.props.financeHouseState.vehicleDetails[0].registration_month,
+      // registration_year: this.props.financeHouseState.vehicleDetails[0].registration_year,
+      // make: this.props.financeHouseState.vehicleDetails[0].make_name,
+      // model: this.props.financeHouseState.vehicleDetails[0].model_name,
+      // description: this.props.financeHouseState.vehicleDetails[0].description,
+      // model_year: this.props.financeHouseState.vehicleDetails[0].model_year,
+      // vehicle_code: this.props.financeHouseState.vehicleDetails[0].vehicle_code,
+      // cash_price: this.props.financeHouseState.vehicleDetails[0].cash_price
+      vehicle_mileage: this.props.SelectedVehicleState.vehicle_mileage,
+      registration_month: this.props.SelectedVehicleState.registration_month,
+      registration_year: this.props.SelectedVehicleState.registration_year,
+      make: this.props.SelectedVehicleState.make_name,
+      model: this.props.SelectedVehicleState.model_name,
+      description: this.props.SelectedVehicleState.description,
+      model_year: this.props.SelectedVehicleState.model_year,
+      vehicle_code: this.props.SelectedVehicleState.vehicle_code,
+      cash_price: this.props.SelectedVehicleState.cash_price,
+      dealer_id: this.props.SelectedDealerState.dealer_id
     };
 
+    console.log(this.props.financeHouseState.vehicleDetails[0].make_name);
     console.log(this.state.term);
     console.log(this.state.deposit_amount);
     console.log(this.state.max_annual_mileage);
     console.log(quoteformvalue);
-    this.props.ToQuotes(quoteformvalue);
+
     this.props.ToPCPQuotes(quoteformvalue);
+    this.props.ToQuotes(quoteformvalue);
   }
 
 
-
   render() {
-    const { QuoteState, PCPQuoteState, financeHouseState, toProposal, ToQuotes, Quotefinancialstate } = this.props;
+    const { QuoteState, PCPQuoteState, HPQuoteState,
+      financeHouseState, toProposal, ToQuotes,
+      HPQuotefinancialstate, PCPfinancialstate,
+      SelectedVehicleState, SelectedDealerState,
+      FailedHP, FailedPCP, selectedFinHouse } = this.props;
+
+    console.log(HPQuotefinancialstate);
+    console.log(PCPfinancialstate);
+    console.log(PCPQuoteState);
 
     return (
       <React.Fragment>
@@ -84,39 +121,13 @@ export class QuoteForm extends Component {
             </a>
             <span className="is-size-3 has-text-weight-medium">Choose your quote</span>
           </div>
-          {financeHouseState.vehicleDetails[0] &&
+          {SelectedVehicleState &&
 
             <div className="quote-content">
               <span className="is-size-4 has-text-weight-medium">Your vehicle summary</span>
               <br />
               <br />
-              <div class="box">
-                <div class="columns">
-                  <div class="column is-one-quarter">
-                    <img className="logo-mall" src={require("../../assets/images/logo-Ferrari.png")} />
-                  </div>
-                  <div class="column">
-                    <span className="plan-header is-size-4 has-text-weight-medium">{financeHouseState.vehicleDetails[0].make_name} - {financeHouseState.vehicleDetails[0].model_name} - {financeHouseState.vehicleDetails[0].description}</span>
-                    <ul>
-                      <li>{financeHouseState.vehicleDetails[0].transmission}</li>
-                      <li>Petrol</li>
-                      <li> {financeHouseState.vehicleDetails[0].body_style}</li>
-                      <li>Black</li>
-                    </ul>
-                  </div>
-                  <div class="column is-one-quarter">
-                    <div className="columns is-mobile">
-                      <div className="column">
-                        <div className="is-size-3 has-text-weight-bold">5.6% APR</div>
-                        <br />
-                        <div className="is-size-6">Vehicle cost : £{financeHouseState.vehicleDetails[0].cash_price}</div>
-                        <br />
-                        <div className="is-size-6">Located in Mitcham, Surrey</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <VehicleSummaryForm selectedFinHouse={selectedFinHouse}></VehicleSummaryForm>
               <br />
               <form>
                 <span className="is-size-4 has-text-weight-medium">Calculate your finance options</span>
@@ -129,7 +140,7 @@ export class QuoteForm extends Component {
                     label="Term"
                     labelWidth={110}
                     onChange={this.handleChangeterm}
-                    helperText="Pleae choose one the term"
+                    helperText="Please choose one the term"
                   >
                     <option value="" />
                     {this.state.termList &&
@@ -147,7 +158,7 @@ export class QuoteForm extends Component {
                     label="Initial deposit"
                     labelWidth={110}
                     onChange={this.handleChangeDeposit}
-                    helperText="Pleae choose initial deposit"
+                    helperText="Please choose initial deposit"
                   >
                     <option value="" />
                     {this.state.depositList &&
@@ -160,12 +171,12 @@ export class QuoteForm extends Component {
                   </Field>
                   <br />
                   <Field
-                    name="milage"
+                    name="mileage"
                     component={InputSelect}
-                    label="Annual milage"
+                    label="Annual mileage"
                     labelWidth={110}
                     onChange={this.handleChangeMileage}
-                    helperText="Pleae choose annual milage"
+                    helperText="Please choose annual milage"
                   >
                     <option value="" />
                     {
@@ -194,13 +205,65 @@ export class QuoteForm extends Component {
                 </div>
               </form>
 
-              {QuoteState && QuoteState.QuoteResults &&
+
+              <div style={{ marginTop: 0 }}>
+                <Paper variant="h5" component="h2" gutterBottom >
+                  {/* {!this.state.term && <Typography>
+                    Please choose Term!
+                        </Typography>}
+                  {!QuoteState.HPQuoteResults.deposit &&
+                    <Typography variant="h5" component="h2">
+                      Please choose Deposit!
+                </Typography>} */}
+                  {FailedHP &&
+                    <Typography variant="h5" component="h2">
+                      Fail:
+                                 {/* {proposalFail.messages} */}
+
+                      {FailedHP.messages.map((message, idx1) => (
+                        <div className="columns" key={idx1}>
+                          <div className="column">
+                            <span>
+                              {message}
+                            </span></div></div>
+                      ))}
+                    </Typography>}
+                  {FailedPCP &&
+                    <Typography variant="h5" component="h2">
+                      Fail:
+                                 {/* {proposalFail.messages} */}
+
+                      {FailedPCP.messages.map((message, idx1) => (
+                        <div className="columns" key={idx1}>
+                          <div className="column">
+                            <span>
+                              {message}
+                            </span></div></div>
+                      ))}
+                    </Typography>}
+                  {!QuoteState && <Typography variant="h5" component="h2">
+                    Something went wrong! Please try again after sometime!  {""}
+                  </Typography>}
+
+                </Paper>
+              </div>
+
+
+              {this.state.term &&
+                this.state.deposit_amount &&
+                this.state.max_annual_mileage &&
+                QuoteState &&
+                QuoteState.HPQuoteResults && QuoteState.PCPQuoteResults &&
+
                 <React.Fragment>
                   <br />
                   <span className="is-size-4 has-text-weight-medium">Your quote result</span>
                   <br />
                   <br />
-                  <QuoteDetails {...QuoteState} term={this.state.term} toProposal={toProposal} />
+
+                  <QuoteDetails {...QuoteState} term={this.state.term} toProposal={toProposal}
+                    HPQuotefinancial={HPQuotefinancialstate} PCPQuotefinancial={PCPfinancialstate}
+                    PCPQuoteresponse={PCPQuoteState} />
                 </React.Fragment>
               }
             </div>
