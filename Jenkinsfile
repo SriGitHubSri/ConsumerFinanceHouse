@@ -31,13 +31,13 @@ pipeline {
       }
     }
     
-   /* stage('Run Container') {
+   stage('Run Container') {
       steps{
-        sh """docker run -itd -p 3000:3000 $registry:$BUILD_NUMBER	
+        sh """docker run -itd --name myapp -p 3000:3000 $registry:$BUILD_NUMBER	
 	"""
       }
     }
-    stage('Deploy to GKE') {
+    /*stage('Deploy to GKE') {
             steps{
                 sh "sed -i 's/myapp:latest/myapp:${env.BUILD_ID}/g' manifest/deployment.yaml"
                 step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'manifest/', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
