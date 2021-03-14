@@ -10,7 +10,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 # where available (npm@5+)
 COPY package*.json ./
 
-RUN CI=true npm ci --silent
+RUN npm install --silent
 # If you are building your code for production
 # RUN npm install
 # Bundle app source
