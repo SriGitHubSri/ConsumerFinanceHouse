@@ -44,11 +44,11 @@ pipeline {
                  echo "Deployment succesful"
 	    }
         }
-    stage('Cleanup') {
+    /*stage('Cleanup') {
       steps{
         cleanWs()
       }
-    }
+    }*/
     
     
     
@@ -59,4 +59,10 @@ pipeline {
     }
     */
   }
+   post { 
+        always { 
+            cleanWs()
+        }
+    }
+
 }
